@@ -10,22 +10,28 @@
         <div class="col-lg-6 mt-5">
             <div style="height: 100%;" class="w-100 d-flex align-items-center flex-column ">
                 <h4 style="color: rgb(199, 161, 26);"  class="fw-bold ">WELCOME USER!!!</h4>
-                <form class=" w-100 mt-3">
+                <form [formGroup]="registerForm" class=" w-100 mt-3">
                     <div class="mb-3 form-floating">
+                        
+                        <input name="username" formControlName="username" type="text" class="form-control" id="floatingInputName" placeholder="name@example.com">
                         <label for="floatingInputName">Username</label>
-                        <input type="text" class="form-control" id="floatingInputName" placeholder="name@example.com">
                     </div>
+                    <div *ngIf="registerForm.get('username')?.errors && registerForm.get('username')?.touched" class="text-danger mb-3">Invalid Username</div>
                     <div class="mb-3 form-floating">
+                        <input name="email" formControlName="email"  type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                         <label for="floatingInput">Email address</label>
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+
                     </div>
+                    <div *ngIf="registerForm.get('email')?.errors && registerForm.get('email')?.touched" class="text-danger mb-3">Invalid Email</div>
                     <div class="mb-3 form-floating">
+                        <input name="password" formControlName="password"  type="password" class="form-control" id="floatingPassword" placeholder="password">
                         <label for="floatingPassword">Password</label>
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="password">
+
                     </div>
+                    <div *ngIf="registerForm.get('password')?.errors && registerForm.get('password')?.touched" class="text-danger mb-3">Invalid Password</div>
 
                     <div class="mt-3">
-                        <button type="submit" class="btn btn-primary">Register</button>
+                        <button (click)="register()" type="submit" class="btn btn-primary">Register</button>
 
                     </div>
                 </form>
