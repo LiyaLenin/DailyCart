@@ -1,1 +1,70 @@
-<p>user-cart works!</p>
+<app-header></app-header>
+<section class="py-2">
+    <div *ngIf="allProducts.length==0"  class="d-flex justify-content-center flex-column align-items-center w-100">
+        <img src="https://bakestudio.in/assets/images/cart/empty-cart.gif" alt="">
+        <h1 style="color: rgb(255, 204, 0);">Your Cart is Empty!!!  </h1>
+
+
+    </div>
+    <div *ngIf="allProducts.length!==0" class="container px-4 px-lg-5 mt-5">
+        <h1 style="color: rgb(14, 12, 5);">Your Cart</h1>
+        <div class="row ">
+            <div class="col-lg-8">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Product</th>
+                            <th>Image</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let product of allProducts;let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{product.title.slice(0,20)}}</td>
+                            <td><img width="60px" height="60px" [src]="product.image" alt=""></td>
+                            <td>
+                              <div class="d-flex">
+                                <button (click)="decrementQuantity(product._id)" class="fw-bolder btn">-</button>
+                                <input style="width: 60px;" type="text" [value]="product.quantity" class="form-control text-center" readonly>
+                                <button  (click)="incrementQuantity(product._id)"  class="btn fw-bolder">+</button>
+                              </div>  
+                            </td>
+                            <td>{{product.totalPrice}}</td>
+                            <td><button (click)="deleteItem(product._id)"   class="btn"><i class="fa-solid fa-trash  text-danger"></i> </button></td>
+                        </tr>
+
+                    </tbody> 
+                </table>
+                <div class="float-end mt-2">
+                    <button (click)="emptyCart()" class="btn btn-danger">EMPTY CART</button>
+                    <button routerLink="" class="btn btn-success ms-3">SHOP MORE</button>
+                </div>
+                
+            </div>
+            <div class="col-lg-4">
+                <div class="border rounded p-3 ">
+                    <h3>Total: <span class="text-danger"> $ {{cartTotalPrice}}</span></h3>
+                    <button *ngIf="!couponStatus" (click)="getCoupon()" class="btn mt-3 text-success">Click here to view Offers<span class="text-danger" ><i class="fa-solid fa-tag ms-2"></i>Offers</span></button>
+                    <!-- gift coupons -->
+                    <div *ngIf="couponStatus" class="d-flex justify-content-evenly mt-3">
+                       <ng-container *ngIf="cartTotalPrice>=50 && cartTotalPrice<=250 &&!couponClickStatus"> <img (click)="discount5() " width="100px" height="100px" src="https://www.pngmart.com/files/7/Coupon-PNG-HD.png" alt=""></ng-container>
+
+                       <ng-container  *ngIf="cartTotalPrice>=250 && cartTotalPrice<=500 &&!couponClickStatus"> <img (click)="discount20() " width="100px" height="100px" src="https://t3.ftcdn.net/jpg/04/79/34/30/360_F_479343010_OuFEw5fwJHySLNHTK11rvCkejNFTUJB1.jpg" alt=""></ng-container>
+
+                       <ng-container *ngIf="cartTotalPrice>500 &&!couponClickStatus"> <img (click)="discount50()"  width="100px" height="100px" src="https://i0.wp.com/shopnix.io/blog/wp-content/uploads/2023/01/discountcoupon.png?fit=1108%2C516&ssl=1" alt=""></ng-container>
+                    </div>
+                    <hr class="mt-5">
+                    <div class="d-grid">
+                        <button (click)="checkout()"  class="btn btn-success"> checkout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

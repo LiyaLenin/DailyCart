@@ -16,6 +16,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { NgxPayPalModule } from 'ngx-paypal';
+import { SearchPipe } from './pipes/search.pipe';
 
 
 @NgModule({
@@ -28,7 +31,9 @@ import { ToastrModule } from 'ngx-toastr';
     AllProductsComponent,
     ViewProductComponent,
     WishlistComponent,
-    UserCartComponent
+    UserCartComponent,
+    CheckoutComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
@@ -36,7 +41,8 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgxPayPalModule
   ],
   providers: [],
   bootstrap: [AppComponent]
